@@ -1,0 +1,111 @@
+// Verdict — sentiment-tagged poll & leaderboard app
+// SQLite for local dev. To move to Postgres: change provider to "postgresql"
+// and DATABASE_URL — the schema is otherwise portable.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Group {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  members    Member[]
+  sentiments Sentiment[]
+  polls      Poll[]
+}
+
+model Member {
+  id       String   @id @default(cuid())
+  groupId  String
+  name     String
+  image    String? // path under /uploads or an external URL
+  joinedAt DateTime @default(now())
+
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  // polls where this member is an option
+  pollOptions PollOption[]
+  // polls this member created
+  createdPolls Poll[] @relation("PollCreator")
+  // votes this member has cast
+  castVotes Vote[] @relation("Voter")
+
+  @@index([groupId])
+}
+
+model Sentiment {
+  id        String   @id @default(cuid())
+  groupId   String
+  label     String
+  color     String // hex accent, assigned from a curated palette
+  emoji     String?
+  createdAt DateTime @default(now())
+
+  group Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  polls Poll[]
+
+  @@unique([groupId, label])
+  @@index([groupId])
+}
+
+model Poll {
+  id              String    @id @default(cuid())
+  groupId         String
+  question        String
+  sentimentId     String
+  createdById     String?
+  createdAt       DateTime  @default(now())
+  status          String    @default("open") // "open" | "closed"
+  closesAt        DateTime?
+  anonymous       Boolean   @default(false)
+  showLiveResults Boolean   @default(true)
+
+  group     Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  sentiment Sentiment @relation(fields: [sentimentId], references: [id], onDelete: Cascade)
+  createdBy Member?   @relation("PollCreator", fields: [createdById], references: [id], onDelete: SetNull)
+
+  options PollOption[]
+  votes   Vote[]
+
+  @@index([groupId])
+  @@index([sentimentId])
+}
+
+model PollOption {
+  id       String @id @default(cuid())
+  pollId   String
+  memberId String
+
+  poll   Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  votes Vote[]
+
+  @@unique([pollId, memberId])
+  @@index([pollId])
+}
+
+model Vote {
+  id            String   @id @default(cuid())
+  pollId        String
+  optionId      String
+  voterMemberId String
+  createdAt     DateTime @default(now())
+
+  poll   Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  option PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  voter  Member     @relation("Voter", fields: [voterMemberId], references: [id], onDelete: Cascade)
+
+  // one vote per member per poll (editable until close)
+  @@unique([pollId, voterMemberId])
+  @@index([pollId])
+  @@index([optionId])
+}

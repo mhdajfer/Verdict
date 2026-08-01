@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
     />
 
     <link rel="stylesheet" href="styles.css" />
@@ -75,8 +75,12 @@
         </p>
 
         <nav class="cta-row" aria-label="Group links" data-enter>
-          <!-- PLACEHOLDER: paste the real WhatsApp invite link into href -->
-          <a class="btn btn--wa" href="#" data-placeholder="whatsapp">
+          <a
+            class="btn btn--wa"
+            href="https://chat.whatsapp.com/Kn5nX6UVa0AAOz2hNa269N"
+            target="_blank"
+            rel="noopener"
+          >
             <svg
               class="btn__icon"
               viewBox="0 0 24 24"
@@ -90,9 +94,12 @@
             </svg>
             Join our WhatsApp
           </a>
-
-          <!-- PLACEHOLDER: paste the real Instagram profile URL into href -->
-          <a class="btn btn--ig" href="#" data-placeholder="instagram">
+          <a
+            class="btn btn--ig"
+            href="https://www.instagram.com/odiikka__/"
+            target="_blank"
+            rel="noopener"
+          >
             <svg
               class="btn__icon"
               viewBox="0 0 24 24"
@@ -125,7 +132,7 @@
     </div>
 
     <!-- ============================================================
-     2. THE ROLL CALL — six members drift up the screen on scroll
+     2. THE ROLL CALL — eight members drift up the screen on scroll
      ============================================================ -->
     <main>
       <section class="roast" id="roll-call" aria-labelledby="roll-call-title">
@@ -136,113 +143,171 @@
             <h2 class="stage__title" id="roll-call-title">The roll call</h2>
             <p class="stage__sub">
               <span class="when-motion">Scroll. They'll come to you.</span>
-              <span class="when-still">All six, on the record.</span>
+              <span class="when-still">All eight, on the record.</span>
             </p>
           </div>
 
           <div class="stage__layer">
             <!-- ------------------------------------------------------
-           PLACEHOLDERS x6.
-           To swap a member: replace the img src with their photo
-           (square crop, 600x600 or larger), update the alt text,
-           the roast line, and the @handle + time in the meta line.
+           The eight members. Photo, callout and time each live in one
+           .floater block. Malayalam callouts carry lang="ml"; leave it
+           off for a line that is entirely English.
            data-lane="left|right" picks which side of the screen
-           the card floats up on.
+           each one floats up on.
+           The times are still made up — change .bubble__meta if you
+           want real ones.
+           If you add or remove someone here, the WAVE array in
+           main.js needs a matching row, in the same order.
            ------------------------------------------------------ -->
 
             <article class="floater" data-lane="left">
-              <img
-                class="floater__pic"
-                src="assets/members/member-1.svg"
-                alt=""
-                width="200"
-                height="200"
-                decoding="async"
-              />
+              <div class="floater__pic">
+                <img
+                  src="assets/members/noufal.jpeg"
+                  alt="Noufal"
+                  width="960"
+                  height="1280"
+                  decoding="async"
+                  style="--pw: 300%; --pl: -115.6%; --pt: -21.6%"
+                />
+              </div>
               <div class="bubble">
-                <p class="bubble__text">Says “on the way” from bed.</p>
-                <p class="bubble__meta">@member_one · 2:41 AM</p>
+                <p class="bubble__text" lang="ml">വാ.. പോയി തല്ലാം..🤬😡</p>
+                <p class="bubble__meta">2:41 AM</p>
               </div>
             </article>
 
             <article class="floater" data-lane="right">
-              <img
-                class="floater__pic"
-                src="assets/members/member-2.svg"
-                alt=""
-                width="200"
-                height="200"
-                decoding="async"
-              />
+              <div class="floater__pic">
+                <img
+                  src="assets/members/salman.jpeg"
+                  alt="Salman"
+                  width="960"
+                  height="1280"
+                  decoding="async"
+                  style="--pw: 118.2%; --pl: -7.2%; --pt: -42.9%"
+                />
+              </div>
               <div class="bubble">
-                <p class="bubble__text">Types for two minutes. Sends “ok”.</p>
-                <p class="bubble__meta">@member_two · 11:58 PM</p>
+                <p class="bubble__text" lang="ml">
+                  വേണ്ട, വെർതെ വള്ളി പിടിക്കണ്ട...💁😘
+                </p>
+                <p class="bubble__meta">3:02 AM</p>
               </div>
             </article>
 
             <article class="floater" data-lane="left">
-              <img
-                class="floater__pic"
-                src="assets/members/member-3.svg"
-                alt=""
-                width="200"
-                height="200"
-                decoding="async"
-              />
+              <div class="floater__pic">
+                <img
+                  src="assets/members/mahin.jpeg"
+                  alt="Mahin"
+                  width="1200"
+                  height="1599"
+                  decoding="async"
+                  style="--pw: 200%; --pl: -68.6%; --pt: -24.2%"
+                />
+              </div>
               <div class="bubble">
-                <p class="bubble__text">Has 4% battery as a personality.</p>
-                <p class="bubble__meta">@member_three · 4:07 AM</p>
+                <p class="bubble__text" lang="ml">
+                  എനിക്ക് അതിൽ ഒരു എതിരഭിപ്രായം ഇണ്ട് 🙂🫠
+                </p>
+                <p class="bubble__meta">9:12 PM</p>
               </div>
             </article>
 
             <article class="floater" data-lane="right">
-              <img
-                class="floater__pic"
-                src="assets/members/member-4.svg"
-                alt=""
-                width="200"
-                height="200"
-                decoding="async"
-              />
+              <div class="floater__pic">
+                <img
+                  src="assets/members/ajfer.jpeg"
+                  alt="Ajfer"
+                  width="720"
+                  height="1280"
+                  decoding="async"
+                  style="--pw: 345.3%; --pl: -144.1%; --pt: -249.4%"
+                />
+              </div>
               <div class="bubble">
-                <p class="bubble__text">
-                  Ordered the biryani. Split the bill. Left.
+                <p class="bubble__text" lang="ml">
+                  അവരുടെ ഭാഗത്തു നിന്ന് ചിന്ദിക്കുമ്പോ....
                 </p>
-                <p class="bubble__meta">@member_four · 9:12 PM</p>
+                <p class="bubble__meta">11:58 PM</p>
               </div>
             </article>
 
             <article class="floater" data-lane="left">
-              <img
-                class="floater__pic"
-                src="assets/members/member-5.svg"
-                alt=""
-                width="200"
-                height="200"
-                decoding="async"
-              />
+              <div class="floater__pic">
+                <img
+                  src="assets/members/deepu.jpeg"
+                  alt="Deepu"
+                  width="1200"
+                  height="1600"
+                  decoding="async"
+                  style="--pw: 300%; --pl: -128.8%; --pt: -18%"
+                />
+              </div>
               <div class="bubble">
-                <p class="bubble__text">
-                  Reacts 😂 to everything. Reads nothing.
-                </p>
-                <p class="bubble__meta">@member_five · 1:33 AM</p>
+                <p class="bubble__text">I don't care, my life my rulezz..🤗</p>
+                <p class="bubble__meta">4:07 AM</p>
               </div>
             </article>
 
             <article class="floater" data-lane="right">
-              <img
-                class="floater__pic"
-                src="assets/members/member-6.svg"
-                alt=""
-                width="200"
-                height="200"
-                decoding="async"
-              />
+              <div class="floater__pic">
+                <img
+                  src="assets/members/mubaris.jpeg"
+                  alt="Mubaris"
+                  width="949"
+                  height="1600"
+                  decoding="async"
+                  style="--pw: 109.4%; --pl: -9.4%; --pt: -53.9%"
+                />
+              </div>
               <div class="bubble">
-                <p class="bubble__text">
-                  Plans the trip. Cancels the trip. Every time.
+                <p class="bubble__text" lang="ml">food ഇടുക്കണോ ?? 🙂</p>
+                <p class="bubble__meta">6:20 AM</p>
+              </div>
+            </article>
+
+            <article class="floater" data-lane="left">
+              <div class="floater__pic">
+                <img
+                  src="assets/members/zayd.jpeg"
+                  alt="Zayd"
+                  width="896"
+                  height="1195"
+                  decoding="async"
+                  style="--pw: 268.2%; --pl: -66.6%; --pt: -50.4%"
+                />
+              </div>
+              <div class="bubble">
+                <p class="bubble__text" lang="ml">
+                  ഞാൻ ഇപ്പൊ ഇട്ട് തീരും . ഒരു 2 mins😶‍🌫️
                 </p>
-                <p class="bubble__meta">@member_six · 6:20 AM</p>
+                <p class="bubble__meta">1:33 AM</p>
+              </div>
+            </article>
+
+            <article class="floater" data-lane="right">
+              <div class="floater__pic">
+                <img
+                  src="assets/members/santhosh.jpeg"
+                  alt="Santhosh"
+                  width="1600"
+                  height="900"
+                  decoding="async"
+                  style="
+                    --ph: 360.9%;
+                    --pl: 122.2%;
+                    --pt: -124.4%;
+                    --rot: 90deg;
+                  "
+                />
+              </div>
+              <div class="bubble">
+                <p class="bubble__text" lang="ml">
+                  ഞാനും എന്റെ മരിയയും മാത്രം🥰😍
+                </p>
+                <p class="bubble__meta">10:47 PM</p>
               </div>
             </article>
           </div>
@@ -261,8 +326,12 @@
         <p class="foot__line">No one has left the group. Yet.</p>
 
         <nav class="cta-row cta-row--foot" aria-label="Group links, repeated">
-          <!-- PLACEHOLDER: same WhatsApp invite link as the hero -->
-          <a class="btn btn--wa" href="#" data-placeholder="whatsapp">
+          <a
+            class="btn btn--wa"
+            href="https://chat.whatsapp.com/Kn5nX6UVa0AAOz2hNa269N"
+            target="_blank"
+            rel="noopener"
+          >
             <svg
               class="btn__icon"
               viewBox="0 0 24 24"
@@ -276,9 +345,12 @@
             </svg>
             Join our WhatsApp
           </a>
-
-          <!-- PLACEHOLDER: same Instagram profile URL as the hero -->
-          <a class="btn btn--ig" href="#" data-placeholder="instagram">
+          <a
+            class="btn btn--ig"
+            href="https://www.instagram.com/odiikka__/"
+            target="_blank"
+            rel="noopener"
+          >
             <svg
               class="btn__icon"
               viewBox="0 0 24 24"

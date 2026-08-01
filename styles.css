@@ -15,6 +15,10 @@
   --display: "Bricolage Grotesque", "Arial Black", sans-serif;
   --body:    "Space Grotesk", system-ui, sans-serif;
   --mono:    "Space Mono", ui-monospace, monospace;
+  /* The callouts are the one place the group speaks in its own voice, and it
+     is mostly Malayalam. Baloo Chettan 2 carries both scripts, so a bubble
+     that mixes them still reads as one hand. */
+  --speech:  "Baloo Chettan 2", "Noto Sans Malayalam", var(--body);
 
   --pad: clamp(1.25rem, 6vw, 4rem);
   --stage-h: 100vh;
@@ -344,15 +348,34 @@ a{ color: inherit; }
   margin-left: auto;
 }
 
+/* The avatar is a circular window; the photo inside it is positioned by
+   three custom properties set per person in the markup. This crops and
+   zooms on each face without touching the image files themselves.
+     --pw / --ph  how big the photo is drawn, as a % of the circle
+     --pl / --pt  where its top-left corner sits, as a % of the circle
+     --rot        for a photo that was shot sideways
+   See the README for how to work these out for a new photo. */
 .floater__pic{
+  position: relative;
   width: 4.6rem;
   height: 4.6rem;
   flex: none;
+  overflow: hidden;
   border-radius: 50%;
-  object-fit: cover;
   border: .19rem solid var(--ink);
   background: var(--paper);
   box-shadow: .3rem .3rem 0 rgba(20,15,30,.28);
+}
+
+.floater__pic img{
+  position: absolute;
+  left: var(--pl, 0);
+  top: var(--pt, 0);
+  width: var(--pw, auto);
+  height: var(--ph, auto);
+  max-width: none;
+  transform: rotate(var(--rot, 0deg));
+  transform-origin: 0 0;
 }
 
 .bubble{
@@ -395,10 +418,18 @@ a{ color: inherit; }
 }
 
 .bubble__text{
-  font-size: .95rem;
-  font-weight: 500;
-  line-height: 1.3;
+  font-family: var(--speech);
+  font-size: 1rem;
+  font-weight: 600;
+  /* Malayalam stacks conjuncts and sits taller than Latin, so it needs more
+     room between lines than the 1.3 the rest of the page uses. */
+  line-height: 1.45;
   color: var(--ink);
+  /* Malayalam words are long and unbreakable, so a naive wrap can leave one
+     word stranded on its own line. Balance evens the lines out where the
+     browser supports it, and break-word is the safety net on narrow screens. */
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .bubble__meta{
@@ -410,7 +441,7 @@ a{ color: inherit; }
 
 /* --- Scroll-driven mode (added by main.js) --- */
 .roast.is-animated{
-  height: calc(var(--stage-h) * 3.6);
+  height: calc(var(--stage-h) * 4.2);
 }
 
 .roast.is-animated .stage{
@@ -516,14 +547,14 @@ a{ color: inherit; }
   .floater__pic{ width: 6.5rem; height: 6.5rem; }
 
   .bubble{ max-width: 20rem; }
-  .bubble__text{ font-size: 1.15rem; }
+  .bubble__text{ font-size: 1.2rem; }
   .bubble__meta{ font-size: .68rem; }
 
   .stage__layer{ gap: 2.75rem; }
 
   .ticker span{ font-size: 1.3rem; }
 
-  .roast.is-animated{ height: calc(var(--stage-h) * 4.2); }
+  .roast.is-animated{ height: calc(var(--stage-h) * 4.8); }
 
   .roast.is-animated .floater[data-lane="left"] { left:  10vw; }
   .roast.is-animated .floater[data-lane="right"]{ right: 10vw; }

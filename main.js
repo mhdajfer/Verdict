@@ -10,14 +10,6 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
 
-  /* Placeholder links shouldn't jump the page to the top while you're
-     testing. Delete this block once the real hrefs are in. */
-  document.querySelectorAll('a[data-placeholder]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      if (a.getAttribute('href') === '#') e.preventDefault();
-    });
-  });
-
   /* Without GSAP or with reduced motion the page still works:
      the roll call renders as a plain readable stack. */
   if (!hasGsap || reduceMotion) return;
@@ -40,7 +32,7 @@
 
 
   /* ----------------------------------------------------------
-     The roll call: six members drift bottom-to-top on a sine
+     The roll call: eight members drift bottom-to-top on a sine
      stagger. Each has its own start offset, sway width, wave
      frequency and rise distance, so nothing moves in lockstep.
      ---------------------------------------------------------- */
@@ -55,14 +47,21 @@
      freq  = half-cycles of sway across its rise
      phase = where in the wave it begins
      tilt  = max rotation in degrees
-     lift  = rise-distance multiplier (its vertical amplitude) */
+     lift  = rise-distance multiplier (its vertical amplitude)
+
+     Noufal's delay is negative on purpose: it means he is already a
+     quarter of the way up when the section arrives, so the screen is
+     never empty. Everyone after him starts below the fold and rises
+     on scroll. */
   var WAVE = [
-    { delay: 0.00, amp: 18, freq: 1.3, phase: 0.0, tilt:  5, lift: 1.00 },
-    { delay: 0.11, amp: 30, freq: 1.8, phase: 1.1, tilt: -7, lift: 1.06 },
-    { delay: 0.22, amp: 22, freq: 1.1, phase: 2.2, tilt:  4, lift: 0.97 },
-    { delay: 0.33, amp: 34, freq: 1.6, phase: 3.3, tilt: -6, lift: 1.04 },
-    { delay: 0.44, amp: 16, freq: 1.4, phase: 4.4, tilt:  6, lift: 0.99 },
-    { delay: 0.55, amp: 28, freq: 2.0, phase: 5.5, tilt: -5, lift: 1.02 }
+    { delay: -0.10, amp: 18, freq: 1.3, phase: 0.0, tilt:  5, lift: 1.00 }, // Noufal
+    { delay:  0.00, amp: 30, freq: 1.8, phase: 1.1, tilt: -7, lift: 1.06 }, // Salman
+    { delay:  0.10, amp: 22, freq: 1.1, phase: 2.2, tilt:  4, lift: 0.97 }, // Mahin
+    { delay:  0.20, amp: 34, freq: 1.6, phase: 3.3, tilt: -6, lift: 1.04 }, // Ajfer
+    { delay:  0.30, amp: 16, freq: 1.4, phase: 4.4, tilt:  6, lift: 0.99 }, // Deepu
+    { delay:  0.40, amp: 28, freq: 2.0, phase: 5.5, tilt: -5, lift: 1.02 }, // Mubaris
+    { delay:  0.50, amp: 24, freq: 1.2, phase: 6.6, tilt:  5, lift: 1.01 }, // Zayd
+    { delay:  0.60, amp: 32, freq: 1.7, phase: 7.7, tilt: -4, lift: 0.96 }  // Santhosh
   ];
   var SPAN = 1 - WAVE[WAVE.length - 1].delay;   // so the last one finishes at the section's end
 

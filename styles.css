@@ -110,7 +110,7 @@ a{ color: inherit; }
 }
 
 .eyebrow{
-  font: 700 .68rem/1 var(--mono);
+  font: 700 clamp(.68rem, 2.8vw, .78rem)/1 var(--mono);
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--pink);
@@ -202,7 +202,7 @@ a{ color: inherit; }
 
 .subline{
   margin-top: 1.1rem;
-  font-size: 1.02rem;
+  font-size: clamp(1.02rem, 4.2vw, 1.15rem);
   color: rgba(255,241,220,.68);
 }
 
@@ -219,11 +219,11 @@ a{ color: inherit; }
   align-items: center;
   justify-content: center;
   gap: .55rem;
-  padding: .95rem 1.4rem;
+  padding: clamp(.95rem, 3.9vw, 1.1rem) clamp(1.4rem, 5.6vw, 1.65rem);
   border-radius: 999px;
   border: .19rem solid var(--ink);
   color: var(--ink);
-  font: 700 1rem/1 var(--body);
+  font: 700 clamp(1rem, 4.1vw, 1.12rem)/1 var(--body);
   text-decoration: none;
   transition: transform .18s ease, box-shadow .18s ease;
 }
@@ -269,7 +269,7 @@ a{ color: inherit; }
 .ticker span{
   font-family: var(--display);
   font-weight: 800;
-  font-size: .95rem;
+  font-size: clamp(.95rem, 3.7vw, 1.3rem);
   letter-spacing: .04em;
   color: var(--ink);
   white-space: nowrap;
@@ -312,7 +312,7 @@ a{ color: inherit; }
 
 .stage__sub{
   margin-top: .5rem;
-  font: 700 .72rem/1 var(--mono);
+  font: 700 clamp(.72rem, 3vw, .82rem)/1 var(--mono);
   letter-spacing: .16em;
   text-transform: uppercase;
   color: rgba(20,15,30,.62);
@@ -357,8 +357,12 @@ a{ color: inherit; }
    See the README for how to work these out for a new photo. */
 .floater__pic{
   position: relative;
-  width: 4.6rem;
-  height: 4.6rem;
+  /* Fluid across the whole phone range. Fixed rem here meant a 6.8"
+     phone showed the same size card as a 6.0" one, just with more empty
+     yellow around it. The vw term keeps the card a constant share of
+     the screen; the rem bounds stop it shrinking or ballooning. */
+  width: clamp(4.6rem, 19vw, 6.5rem);
+  height: clamp(4.6rem, 19vw, 6.5rem);
   flex: none;
   overflow: hidden;
   border-radius: 50%;
@@ -380,7 +384,7 @@ a{ color: inherit; }
 
 .bubble{
   position: relative;
-  max-width: 12rem;
+  max-width: clamp(12rem, 49vw, 20rem);
   padding: .7rem .9rem .6rem;
   border-radius: 1.1rem;
   border: .19rem solid var(--ink);
@@ -419,7 +423,7 @@ a{ color: inherit; }
 
 .bubble__text{
   font-family: var(--speech);
-  font-size: 1rem;
+  font-size: clamp(1rem, 4.15vw, 1.2rem);
   font-weight: 600;
   /* Malayalam stacks conjuncts and sits taller than Latin, so it needs more
      room between lines than the 1.3 the rest of the page uses. */
@@ -434,7 +438,7 @@ a{ color: inherit; }
 
 .bubble__meta{
   margin-top: .4rem;
-  font: 400 .62rem/1 var(--mono);
+  font: 400 clamp(.62rem, 2.55vw, .68rem)/1 var(--mono);
   letter-spacing: .04em;
   color: rgba(20,15,30,.55);
 }
@@ -528,7 +532,7 @@ a{ color: inherit; }
 
 .foot__meta{
   margin-top: 2.5rem;
-  font: 400 .66rem/1.6 var(--mono);
+  font: 400 clamp(.66rem, 2.7vw, .74rem)/1.6 var(--mono);
   letter-spacing: .08em;
   color: rgba(255,241,220,.42);
 }
@@ -544,15 +548,10 @@ a{ color: inherit; }
     justify-content: center;
   }
 
-  .floater__pic{ width: 6.5rem; height: 6.5rem; }
-
-  .bubble{ max-width: 20rem; }
-  .bubble__text{ font-size: 1.2rem; }
-  .bubble__meta{ font-size: .68rem; }
+  /* The card's own clamps already top out at these sizes, so there is
+     nothing to override here any more. */
 
   .stage__layer{ gap: 2.75rem; }
-
-  .ticker span{ font-size: 1.3rem; }
 
   .roast.is-animated{ height: calc(var(--stage-h) * 4.8); }
 

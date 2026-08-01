@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Placeholder avatar 2">
+  <!-- PLACEHOLDER avatar 2 - swap this file for a real square photo -->
+  <rect width="200" height="200" fill="#3BE8B0"/>
+  <circle cx="100" cy="78" r="34" fill="#140F1E"/>
+  <path d="M28 200c0-42 32-70 72-70s72 28 72 70z" fill="#140F1E"/>
+  <text x="100" y="188" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="#3BE8B0">02</text>
+</svg>

@@ -1,0 +1,555 @@
+/* ============================================================
+   @Odikka_ — landing page
+   Mobile-first. Desktop refinements live at the bottom.
+   ============================================================ */
+
+:root{
+  /* Palette: Kerala wall-poster after dark */
+  --ink:      #140F1E;   /* deep aubergine, page base */
+  --ink-2:    #221A36;   /* raised ink, bubbles on dark */
+  --paper:    #FFF1DC;   /* warm newsprint, text on dark */
+  --pink:     #FF2E88;   /* poster magenta */
+  --yellow:   #FFC93C;   /* chrome yellow, the roll-call section */
+  --mint:     #3BE8B0;   /* signal green */
+
+  --display: "Bricolage Grotesque", "Arial Black", sans-serif;
+  --body:    "Space Grotesk", system-ui, sans-serif;
+  --mono:    "Space Mono", ui-monospace, monospace;
+
+  --pad: clamp(1.25rem, 6vw, 4rem);
+  --stage-h: 100vh;
+}
+
+@supports (height: 100svh){
+  :root{ --stage-h: 100svh; }   /* stable on mobile: ignores URL-bar collapse */
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+
+html{
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body{
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ display: block; max-width: 100%; height: auto; }
+
+h1, h2, p{ margin: 0; }
+
+a{ color: inherit; }
+
+:focus-visible{
+  outline: 3px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip{
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 99;
+  padding: .75rem 1rem;
+  background: var(--mint);
+  color: var(--ink);
+  font: 700 .9rem/1 var(--mono);
+  text-decoration: none;
+}
+.skip:focus{ left: .5rem; top: .5rem; }
+
+/* Halftone print texture, reused on the dark sections */
+.hero__grain,
+.foot__grain{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,241,220,.13) 1px, transparent 1.3px);
+  background-size: 13px 13px;
+  opacity: .55;
+}
+
+
+/* ============================================================
+   1. HERO
+   ============================================================ */
+
+.hero{
+  position: relative;
+  overflow: hidden;
+  min-height: var(--stage-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4.5rem var(--pad) 3.5rem;
+  background:
+    radial-gradient(120% 70% at 50% 0%, #2C1B44 0%, transparent 60%),
+    var(--ink);
+}
+
+.hero__inner{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eyebrow{
+  font: 700 .68rem/1 var(--mono);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 1.75rem;
+}
+
+/* --- Group profile picture --- */
+.dp{
+  position: relative;
+  width: clamp(9.5rem, 44vw, 13rem);
+  aspect-ratio: 1;
+  margin: 0 auto 1.6rem;
+  transform: rotate(-3deg);
+}
+
+.dp__img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--ink-2);
+  box-shadow: 0 1.4rem 3rem rgba(0,0,0,.55);
+}
+
+.dp__ring{
+  position: absolute;
+  inset: -.6rem;
+  border-radius: 50%;
+  border: .28rem solid var(--yellow);
+  border-left-color: var(--pink);
+  border-bottom-color: var(--pink);
+}
+
+/* "we're online" dot — the group is always awake */
+.dp__live{
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--mint);
+  border: .22rem solid var(--ink);
+}
+
+.handle{
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(3rem, 19vw, 7.5rem);
+  line-height: .88;
+  letter-spacing: -.045em;
+  color: var(--paper);
+  word-break: break-word;
+}
+
+.tagline{
+  display: inline-flex;
+  align-items: baseline;
+  margin-top: .6rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 8.4vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--yellow);
+}
+
+/* Signature detail: the tagline's ellipsis is a live typing indicator. */
+.dots{
+  display: inline-flex;
+  align-items: center;
+  gap: .18em;
+  margin-left: .22em;
+}
+.dots i{
+  width: .21em;
+  height: .21em;
+  border-radius: 50%;
+  background: var(--pink);
+  animation: blip 1.25s ease-in-out infinite;
+}
+.dots i:nth-child(2){ animation-delay: .18s; }
+.dots i:nth-child(3){ animation-delay: .36s; }
+
+@keyframes blip{
+  0%, 60%, 100%{ opacity: .28; transform: translateY(0); }
+  30%          { opacity: 1;   transform: translateY(-.22em); }
+}
+
+.subline{
+  margin-top: 1.1rem;
+  font-size: 1.02rem;
+  color: rgba(255,241,220,.68);
+}
+
+/* --- Buttons --- */
+.cta-row{
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  margin-top: 2.2rem;
+}
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: .95rem 1.4rem;
+  border-radius: 999px;
+  border: .19rem solid var(--ink);
+  color: var(--ink);
+  font: 700 1rem/1 var(--body);
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.btn--wa{ background: var(--mint);   box-shadow: 0 .35rem 0 #17A377; }
+.btn--ig{ background: var(--pink);   box-shadow: 0 .35rem 0 #A8114F; }
+
+.btn:hover{ transform: translateY(-.18rem) rotate(-1.2deg); }
+.btn:active{ transform: translateY(.2rem); box-shadow: 0 0 0 currentColor; }
+.btn--ig:hover{ transform: translateY(-.18rem) rotate(1.2deg); }
+
+.btn__icon{ width: 1.25rem; height: 1.25rem; flex: none; }
+
+.hero__hint{
+  position: relative;
+  z-index: 1;
+  margin-top: 2.75rem;
+  text-align: center;
+  font: 400 .68rem/1 var(--mono);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,241,220,.4);
+}
+
+
+/* ============================================================
+   Poster ticker
+   ============================================================ */
+
+.ticker{
+  overflow: hidden;
+  padding: .55rem 0;
+  background: var(--pink);
+  border-block: .19rem solid var(--ink);
+}
+
+.ticker__track{
+  display: flex;
+  width: max-content;
+  animation: slide 22s linear infinite;
+}
+
+.ticker span{
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: .95rem;
+  letter-spacing: .04em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+@keyframes slide{
+  from{ transform: translate3d(0,0,0); }
+  to  { transform: translate3d(-50%,0,0); }
+}
+
+
+/* ============================================================
+   2. THE ROLL CALL
+   Default (no JS / reduced motion): a plain readable stack.
+   .is-animated switches it to the scroll-driven river.
+   ============================================================ */
+
+.roast{
+  position: relative;
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.stage{
+  padding: 3rem var(--pad) 4rem;
+}
+
+.stage__head{
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.stage__title{
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 13vw, 5rem);
+  line-height: .92;
+  letter-spacing: -.04em;
+}
+
+.stage__sub{
+  margin-top: .5rem;
+  font: 700 .72rem/1 var(--mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(20,15,30,.62);
+}
+
+/* The subhead tells the truth in whichever mode is running: an instruction
+   when the members drift past, a plain label when they sit in a list. */
+.when-motion{ display: none; }
+.roast.is-animated .when-motion{ display: inline; }
+.roast.is-animated .when-still{ display: none; }
+
+.stage__veil{ display: none; }
+
+.stage__layer{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+/* --- One member: avatar + speech bubble --- */
+.floater{
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  width: max-content;
+  max-width: 100%;
+}
+
+.floater[data-lane="right"]{
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+.floater__pic{
+  width: 4.6rem;
+  height: 4.6rem;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  border: .19rem solid var(--ink);
+  background: var(--paper);
+  box-shadow: .3rem .3rem 0 rgba(20,15,30,.28);
+}
+
+.bubble{
+  position: relative;
+  max-width: 12rem;
+  padding: .7rem .9rem .6rem;
+  border-radius: 1.1rem;
+  border: .19rem solid var(--ink);
+  background: var(--paper);
+  box-shadow: .3rem .3rem 0 var(--ink);
+  transform: rotate(-1.4deg);
+}
+
+.floater[data-lane="right"] .bubble{ transform: rotate(1.4deg); }
+
+/* Bubble tail, pointing back at the avatar */
+.bubble::before{
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: -.55rem;
+  width: .9rem;
+  height: .9rem;
+  background: var(--paper);
+  border-left: .19rem solid var(--ink);
+  border-bottom: .19rem solid var(--ink);
+  transform: rotate(45deg);
+  border-bottom-left-radius: .2rem;
+}
+
+.floater[data-lane="right"] .bubble::before{
+  left: auto;
+  right: -.55rem;
+  border-left: 0;
+  border-bottom: 0;
+  border-right: .19rem solid var(--ink);
+  border-top: .19rem solid var(--ink);
+  border-bottom-left-radius: 0;
+  border-top-right-radius: .2rem;
+}
+
+.bubble__text{
+  font-size: .95rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.bubble__meta{
+  margin-top: .4rem;
+  font: 400 .62rem/1 var(--mono);
+  letter-spacing: .04em;
+  color: rgba(20,15,30,.55);
+}
+
+/* --- Scroll-driven mode (added by main.js) --- */
+.roast.is-animated{
+  height: calc(var(--stage-h) * 3.6);
+}
+
+.roast.is-animated .stage{
+  position: sticky;
+  top: 0;
+  height: var(--stage-h);
+  padding: 0;
+  overflow: hidden;
+}
+
+.roast.is-animated .stage__layer{
+  position: absolute;
+  inset: 0;
+  display: block;
+  max-width: none;
+  margin: 0;
+  z-index: 1;
+}
+
+.roast.is-animated .floater{
+  position: absolute;
+  top: 0;
+  will-change: transform;
+  backface-visibility: hidden;
+  opacity: 0;
+}
+
+.roast.is-animated .floater[data-lane="left"] { left:  var(--pad); }
+.roast.is-animated .floater[data-lane="right"]{ right: var(--pad); margin-left: 0; }
+
+/* Members dissolve into the heading as they rise, and fade in from the floor */
+.roast.is-animated .stage__veil{
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--yellow) 0 14%, rgba(255,201,60,.92) 22%, transparent 38%),
+    linear-gradient(to top,    var(--yellow) 0 3%, transparent 16%);
+}
+
+.roast.is-animated .stage__head{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  margin: 0;
+  padding: 3rem var(--pad) 0;
+}
+
+
+/* ============================================================
+   3. FOOTER
+   ============================================================ */
+
+.foot{
+  position: relative;
+  overflow: hidden;
+  padding: 4rem var(--pad) 3rem;
+  background: var(--ink);
+  border-top: .19rem solid var(--ink);
+}
+
+.foot__inner{
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.foot__line{
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 10vw, 3.6rem);
+  line-height: .98;
+  letter-spacing: -.035em;
+  color: var(--paper);
+}
+
+.cta-row--foot{ margin-top: 2rem; }
+
+.foot__meta{
+  margin-top: 2.5rem;
+  font: 400 .66rem/1.6 var(--mono);
+  letter-spacing: .08em;
+  color: rgba(255,241,220,.42);
+}
+
+
+/* ============================================================
+   Desktop
+   ============================================================ */
+
+@media (min-width: 40rem){
+  .cta-row{
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .floater__pic{ width: 6.5rem; height: 6.5rem; }
+
+  .bubble{ max-width: 20rem; }
+  .bubble__text{ font-size: 1.15rem; }
+  .bubble__meta{ font-size: .68rem; }
+
+  .stage__layer{ gap: 2.75rem; }
+
+  .ticker span{ font-size: 1.3rem; }
+
+  .roast.is-animated{ height: calc(var(--stage-h) * 4.2); }
+
+  .roast.is-animated .floater[data-lane="left"] { left:  10vw; }
+  .roast.is-animated .floater[data-lane="right"]{ right: 10vw; }
+}
+
+@media (min-width: 64rem){
+  .hero__inner{ max-width: 54rem; }
+  .roast.is-animated .floater[data-lane="left"] { left:  16vw; }
+  .roast.is-animated .floater[data-lane="right"]{ right: 16vw; }
+}
+
+
+/* ============================================================
+   Reduced motion — kill every ambient loop, keep the layout
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+
+  .dots i,
+  .ticker__track{
+    animation: none;
+  }
+
+  .dots i{ opacity: .8; }
+
+  .btn{ transition: none; }
+  .btn:hover{ transform: none; }
+}
